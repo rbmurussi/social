@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
+import 'package:social/app/screens/feed/sprint.dart';
 import 'package:social/app/shared/models/post.dart';
 import 'package:social/app/shared/models/user.dart';
 import 'package:social/app/shared/util/constants.dart';
@@ -22,6 +23,50 @@ class FeedApi {
       return posts;
     }else {
       throw Exception('Erro ao recuperar posts. Status code: ${response.statusCode}');
+    }
+  }
+
+  Future<List<Sprint>> getSprint() async {
+    final response = await _client.get(Uri.parse('${Constants.API_SCRUM_DECK_URL}/sprint'));
+    if (response.statusCode == 200) {
+      final List<dynamic> jSprint = json.decode(response.body);
+      final sprint = jSprint.map((jp) => Sprint.fromJson(jp)).toList();
+      return sprint;
+    }else {
+      throw Exception('Erro ao recuperar getSprint. Status code: ${response.statusCode}');
+    }
+  }
+
+  Future<List<Sprint>> getIdSprint() async {
+    final response = await _client.get(Uri.parse('${Constants.API_SCRUM_DECK_URL}/sprint/:id'));
+    if (response.statusCode == 200) {
+      final List<dynamic> jSprint = json.decode(response.body);
+      final sprint = jSprint.map((jp) => Sprint.fromJson(jp)).toList();
+      return sprint;
+    }else {
+      throw Exception('Erro ao recuperar getIdSprint. Status code: ${response.statusCode}');
+    }
+  }
+
+  Future<List<Sprint>> postSprint() async {
+    final response = await _client.post(Uri.parse('${Constants.API_SCRUM_DECK_URL}/sprint'));
+    if (response.statusCode == 200) {
+      final List<dynamic> jSprint = json.decode(response.body);
+      final sprint = jSprint.map((jp) => Sprint.fromJson(jp)).toList();
+      return sprint;
+    }else {
+      throw Exception('Erro ao recuperar postSprint. Status code: ${response.statusCode}');
+    }
+  }
+
+  Future<List<Sprint>> deleteSprint() async {
+    final response = await _client.delete(Uri.parse('${Constants.API_SCRUM_DECK_URL}/sprint'));
+    if (response.statusCode == 200) {
+      final List<dynamic> jSprint = json.decode(response.body);
+      final sprint = jSprint.map((jp) => Sprint.fromJson(jp)).toList();
+      return sprint;
+    }else {
+      throw Exception('Erro ao recuperar postSprint. Status code: ${response.statusCode}');
     }
   }
 
